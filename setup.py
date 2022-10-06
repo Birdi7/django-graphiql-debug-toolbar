@@ -32,7 +32,6 @@ setup(
     include_package_data=True,
     install_requires=[
         'Django>=2.0',
-        'graphene-django>=2.0.0',
         'django-debug-toolbar>=2.0',
     ],
     classifiers=[
