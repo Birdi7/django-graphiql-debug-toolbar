@@ -10,7 +10,6 @@ from debug_toolbar.middleware import _HTML_TYPES
 from debug_toolbar.middleware import DebugToolbarMiddleware as BaseMiddleware
 from debug_toolbar.middleware import get_show_toolbar
 from debug_toolbar.toolbar import DebugToolbar
-from graphene_django.views import GraphQLView
 
 from .serializers import CallableJSONEncoder
 
@@ -70,7 +69,7 @@ class DebugToolbarMiddleware(BaseMiddleware):
 
     def process_view(self, request, view_func, *args):
         if hasattr(view_func, 'view_class') and\
-                issubclass(view_func.view_class, GraphQLView):
+                getattr(view_func.view_class, 'IS_GRAPHQL_VIEW', False):
             request._graphql_view = True
 
     def __call__(self, request):
