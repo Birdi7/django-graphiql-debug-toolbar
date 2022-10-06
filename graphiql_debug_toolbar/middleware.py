@@ -41,6 +41,9 @@ def set_content_length(response):
 def get_payload(request, response, toolbar):
     content = force_text(response.content, encoding=response.charset)
     payload = json.loads(content, object_pairs_hook=OrderedDict)
+    if isinstance(payload, list):
+        # disable toolbar if this is batch request
+        return payload
     payload['debugToolbar'] = OrderedDict([('panels', OrderedDict())])
 
     for panel in reversed(toolbar.enabled_panels):
